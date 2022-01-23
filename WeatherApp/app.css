@@ -1,8 +1,8 @@
 /* RESET STYLES
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 :root {
-    --bg_main: #0a1f44;
-    --text_light: #fff;
+    --bg_main: #1c1f21;
+    --text_light: #E7E4D1;
     --text_med: #53627c;
     --text_dark: #1e2432;
     --red: #ff1e42;
@@ -87,6 +87,7 @@
     height: 40px;
     padding: 5px 5px 10px;
     border-bottom: 1px solid;
+    width: 100%;
   }
   
   .top-banner form input::placeholder {
@@ -256,7 +257,7 @@
   
   /* API Key banner
   –––––––––––––––––––––––––––––––––––––––––––––––––– */
-  .api {
+  /* .api {
     background: #fffbbc;
     position: fixed;
     top: 0;
@@ -271,4 +272,7 @@
   
   .api a:hover {
     text-decoration: none;
+  } */
+  .hider {
+    display: none;
   }

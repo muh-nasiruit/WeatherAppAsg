@@ -3,8 +3,11 @@ const form = document.querySelector(".top-banner form");
 const input = document.querySelector(".top-banner input");
 const msg = document.querySelector(".top-banner .msg");
 const list = document.querySelector(".ajax-section .cities");
+const hider = document.querySelector(".page-footer .hider");
+// const testBt = document.getElementsByClassName("buttonPress")[0];
+// console.log(list);
 /*SUBSCRIBE HERE FOR API KEY: https://home.openweathermap.org/users/sign_up*/
-const apiKey = "4d8fb5b93d4af21d66a2948710284366";
+const apiKey = "ad5bec3ecba1f605b73a79110be9cf78";
 
 form.addEventListener("submit", e => {
   e.preventDefault();
@@ -13,6 +16,7 @@ form.addEventListener("submit", e => {
   //check if there's already a city
   const listItems = list.querySelectorAll(".ajax-section .city");
   const listItemsArray = Array.from(listItems);
+  console.log(listItemsArray);
 
   if (listItemsArray.length > 0) {
     const filteredArray = listItemsArray.filter(el => {
@@ -44,13 +48,13 @@ form.addEventListener("submit", e => {
       return;
     }
   }
-
+  
   //ajax here
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${inputVal}&appid=${apiKey}&units=metric`;
-
+  
   fetch(url)
-    .then(response => response.json())
-    .then(data => {
+  .then(response => response.json())
+  .then(data => {
       const { main, name, sys, weather } = data;
       const icon = `https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/${
         weather[0]["icon"]
@@ -72,7 +76,9 @@ form.addEventListener("submit", e => {
         </figure>
       `;
       li.innerHTML = markup;
+      list.innerHTML = "";
       list.appendChild(li);
+      hider.style = "display: block";
     })
     .catch(() => {
       msg.textContent = "Please search for a valid city 😩";
@@ -82,3 +88,81 @@ form.addEventListener("submit", e => {
   form.reset();
   input.focus();
 });
+
+// testBt.addEventListener("click", () => {
+//   const topCities = ["Karachi", "Lahore", "Islamabad"];
+//   topCities.forEach(fetchCityInfo);
+  
+//   function fetchCityInfo(city) {
+//     const urlFresh = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+//     fetch(urlFresh)
+//     .then(response => response.json())
+//     .then(data => {
+//       // const { main, name, sys, weather } = data;
+//       console.log(data);
+//       // const icon = `https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/${
+//       //   weather[0]["icon"]
+//       // }.svg`;
+  
+//       // const li = document.createElement("li");
+//       // li.classList.add("city");
+//       // const markup = `
+//       //   <h2 class="city-name" data-name="${name},${sys.country}">
+//       //     <span>${name}</span>
+//       //     <sup>${sys.country}</sup>
+//       //   </h2>
+//       //   <div class="city-temp">${Math.round(main.temp)}<sup>°C</sup></div>
+//       //   <figure>
+//       //     <img class="city-icon" src="${icon}" alt="${
+//       //   weather[0]["description"]
+//       // }">
+//       //     <figcaption>${weather[0]["description"]}</figcaption>
+//       //   </figure>
+//       // `;
+//       // li.innerHTML = markup;
+//       // list.appendChild(li);
+//     })
+//     .catch(console.log('Error'));
+//   };
+// });
+
+const topCities = ["Karachi", "Lahore", "Islamabad"];
+topCities.forEach(fetchCityInfo);
+
+function fetchCityInfo(city) {
+  const urlFresh = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  fetch(urlFresh)
+  .then(response => response.json())
+  .then(data => {
+    const { main, name, sys, weather } = data;
+    console.log(main, name, sys, weather);
+    const icon = `https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/${
+      weather[0]["icon"]
+    }.svg`;
+
+    const li = document.createElement("li");
+    li.classList.add("city");
+    const markup = `
+      <h2 class="city-name" data-name="${name},${sys.country}">
+        <span>${name}</span>
+        <sup>${sys.country}</sup>
+      </h2>
+      <div class="city-temp">${Math.round(main.temp)}<sup>°C</sup></div>
+      <figure>
+        <img class="city-icon" src="${icon}" alt="${
+      weather[0]["description"]
+    }">
+        <figcaption>${weather[0]["description"]}</figcaption>
+      </figure>
+    `;
+    li.innerHTML = markup;
+    list.appendChild(li);
+  })
+  .catch(console.log('Error'));
+};
+
+// $.get('result.html').then(function(responseData) {
+//   //responseData is the contents of the other page. Do whatever you want with it.
+//   // $('#someElem').append(responseData);
+//   console.log(responseData);
+// });
