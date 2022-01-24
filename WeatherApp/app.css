@@ -2,11 +2,11 @@
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 :root {
     --bg_main: #1c1f21;
-    --text_light: #E7E4D1;
+    --text_light: #ffffff;
     --text_med: #53627c;
     --text_dark: #1e2432;
-    --red: #ff1e42;
-    --darkred: #c3112d;
+    --red: #61b365;
+    --darkred: #28962e;
     --orange: #ff8c00;
   }
   
@@ -87,7 +87,8 @@
     height: 40px;
     padding: 5px 5px 10px;
     border-bottom: 1px solid;
-    width: 100%;
+    border-right: 1px solid;
+    width: 77%;
   }
   
   .top-banner form input::placeholder {
@@ -136,6 +137,8 @@
     border-radius: 20px;
     background: var(--text_light);
     color: var(--text_med);
+    width: 288px;
+    height: 356px;
   }
   
   .ajax-section .city::after {
